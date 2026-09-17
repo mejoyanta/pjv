@@ -25,7 +25,7 @@ export default function Header() {
 
       <div className="kt-header__topbar">
         <a
-          href="http://localhost:8080/swagger-ui.html"
+          href={`${(import.meta.env.VITE_API_URL || 'http://localhost:8081/api/v1').replace(/\/api\/v1\/?$/, '')}/swagger-ui.html`}
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-label-brand btn-sm"

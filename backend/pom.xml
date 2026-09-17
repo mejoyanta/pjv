@@ -87,6 +87,13 @@
             <version>2.16.1</version>
         </dependency>
 
+        <!-- Dotenv support (.env file loading) -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
         <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -13,6 +13,31 @@ import CompanyCreatePage from './pages/company/CompanyCreatePage';
 import CompanyEditPage from './pages/company/CompanyEditPage';
 import CompanyDocumentsPage from './pages/company/CompanyDocumentsPage';
 
+// Company Information Child Menu Pages
+import DocumentRegisterListPage from './pages/company-info/DocumentRegisterListPage';
+import CompanyReportSummaryListPage from './pages/company-info/CompanyReportSummaryListPage';
+import DvcListPage from './pages/company-info/DvcListPage';
+import AuditReportListPage from './pages/company-info/AuditReportListPage';
+import AnalyzeReportListPage from './pages/company-info/AnalyzeReportListPage';
+import LegalManagementListPage from './pages/company-info/LegalManagementListPage';
+import TaskManagementListPage from './pages/company-info/TaskManagementListPage';
+import CompanyNocListPage from './pages/company-info/CompanyNocListPage';
+
+// Basic Configuration Child Menu Pages
+import CurrencyListPage from './pages/basic-config/CurrencyListPage';
+import UnitListPage from './pages/basic-config/UnitListPage';
+import PortListPage from './pages/basic-config/PortListPage';
+import CpcItemNoListPage from './pages/basic-config/CpcItemNoListPage';
+import DesignationDepartmentListPage from './pages/basic-config/DesignationDepartmentListPage';
+import AdditionalPriceListPage from './pages/basic-config/AdditionalPriceListPage';
+import MaterialListPage from './pages/basic-config/MaterialListPage';
+import ProductListPage from './pages/basic-config/ProductListPage';
+import BarcodeGeneratorPage from './pages/basic-config/BarcodeGeneratorPage';
+import SupplierListPage from './pages/basic-config/SupplierListPage';
+import PrioritySupplierListPage from './pages/basic-config/PrioritySupplierListPage';
+import CustomerListPage from './pages/basic-config/CustomerListPage';
+import PriorityCustomerListPage from './pages/basic-config/PriorityCustomerListPage';
+
 // User Pages
 import UserListPage from './pages/user/UserListPage';
 import UserArchivePage from './pages/user/UserArchivePage';
@@ -26,6 +51,9 @@ import GroupCreatePage from './pages/group/GroupCreatePage';
 import GroupEditPage from './pages/group/GroupEditPage';
 import GroupAccessPage from './pages/group/GroupAccessPage';
 
+// Dashboard Page
+import DashboardOverviewPage from './pages/dashboard/DashboardOverviewPage';
+
 export default function App() {
   return (
     <AuthProvider>
@@ -36,7 +64,8 @@ export default function App() {
 
           {/* Protected Dashboard Layout */}
           <Route element={<MasterLayout />}>
-            <Route path="/" element={<Navigate to="/company" replace />} />
+            <Route path="/" element={<DashboardOverviewPage />} />
+            <Route path="/dashboard/overview" element={<DashboardOverviewPage />} />
 
             {/* Company Routes */}
             <Route path="/company" element={<CompanyListPage />} />
@@ -44,6 +73,31 @@ export default function App() {
             <Route path="/company/create" element={<CompanyCreatePage />} />
             <Route path="/company/:slug" element={<CompanyEditPage />} />
             <Route path="/company/:slug/documents" element={<CompanyDocumentsPage />} />
+
+            {/* Company Information Child Menu Routes */}
+            <Route path="/document-register" element={<DocumentRegisterListPage />} />
+            <Route path="/company-report-summary" element={<CompanyReportSummaryListPage />} />
+            <Route path="/dvc-files" element={<DvcListPage />} />
+            <Route path="/audit-report" element={<AuditReportListPage />} />
+            <Route path="/analyze-report" element={<AnalyzeReportListPage />} />
+            <Route path="/legal-management" element={<LegalManagementListPage />} />
+            <Route path="/task-management" element={<TaskManagementListPage />} />
+            <Route path="/company-noc" element={<CompanyNocListPage />} />
+
+            {/* Basic Configuration Child Menu Routes */}
+            <Route path="/currency" element={<CurrencyListPage />} />
+            <Route path="/unit" element={<UnitListPage />} />
+            <Route path="/port" element={<PortListPage />} />
+            <Route path="/cpc-item-no" element={<CpcItemNoListPage />} />
+            <Route path="/designation-department" element={<DesignationDepartmentListPage />} />
+            <Route path="/price-additional" element={<AdditionalPriceListPage />} />
+            <Route path="/material" element={<MaterialListPage />} />
+            <Route path="/product" element={<ProductListPage />} />
+            <Route path="/barcode" element={<BarcodeGeneratorPage />} />
+            <Route path="/supplier" element={<SupplierListPage />} />
+            <Route path="/priority-supplier" element={<PrioritySupplierListPage />} />
+            <Route path="/customer" element={<CustomerListPage />} />
+            <Route path="/priority-customer" element={<PriorityCustomerListPage />} />
 
             {/* User Routes */}
             <Route path="/users" element={<UserListPage />} />

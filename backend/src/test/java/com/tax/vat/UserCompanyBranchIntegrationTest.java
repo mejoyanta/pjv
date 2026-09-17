@@ -60,18 +60,22 @@ public class UserCompanyBranchIntegrationTest {
 
     @Test
     public void testFullFlow_Login_Company_Branch_User_Login_Logout() {
-        System.out.println("====== [TEST STEP 0]: Inspecting Joyanta Company columns ======");
         try {
-            jdbcTemplate.query("SELECT * FROM companies WHERE id = (SELECT company_id FROM users WHERE email = 'joyanta319@gmail.com')", rs -> {
-                java.sql.ResultSetMetaData md = rs.getMetaData();
-                for (int i = 1; i <= md.getColumnCount(); i++) {
-                    String colName = md.getColumnName(i);
-                    String val = rs.getString(i);
-                    if ("".equals(val)) {
-                        System.out.println(">>> EMPTY STRING IN DB: Col " + i + ": " + colName + " (type: " + md.getColumnTypeName(i) + ")");
-                    }
+            System.out.println(">>> CHECKING TABLES IN POSTGRES:");
+            for (String t : new String[]{"companies", "payments", "purchases", "musak_4_3s", "musak_9_1_onlines", "scroll_notices"}) {
+                try {
+                    Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM " + t, Integer.class);
+                    System.out.println(">>> TABLE [" + t + "] COUNT = " + count);
+                } catch (Exception e) {
+                    System.out.println(">>> TABLE [" + t + "] NOT FOUND or ERR: " + e.getMessage());
                 }
-            });
+            }
+            try {
+                java.util.List<java.util.Map<String, Object>> notices = jdbcTemplate.queryForList("SELECT id, message, status FROM scroll_notices LIMIT 3");
+                System.out.println(">>> SCROLL NOTICES SAMPLE: " + notices);
+            } catch (Exception e) {
+                System.out.println(">>> NOTICES ERR: " + e.getMessage());
+            }
         } catch (Exception e) {
             System.out.println("Debug query failed: " + e.getMessage());
         }

@@ -1,9 +1,7 @@
 package com.tax.vat.entity;
 
 import com.tax.vat.entity.base.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "designations")
@@ -14,6 +12,11 @@ public class Designation extends BaseEntity {
 
     @Column(name = "company_id")
     private Long companyId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id", insertable = false, updatable = false)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
+    private Company company;
 
     public Designation() {
     }
@@ -37,5 +40,13 @@ public class Designation extends BaseEntity {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

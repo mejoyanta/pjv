@@ -12,21 +12,123 @@ export default function Sidebar() {
       </div>
 
       <div className="kt-aside-menu">
-        <div className="kt-menu__section">Company Information</div>
+        <NavLink to="/dashboard/overview" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-grid-fill kt-menu__link-icon"></i>
+          <span style={{ fontWeight: 600 }}>DASHBOARD</span>
+        </NavLink>
+
+        <div className="kt-menu__section" style={{ marginTop: 15 }}>Company Information</div>
 
         <NavLink to="/company" end className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
           <i className="bi bi-buildings kt-menu__link-icon"></i>
-          <span>Company List</span>
+          <span>Company</span>
         </NavLink>
 
-        <NavLink to="/company/create" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
-          <i className="bi bi-building-add kt-menu__link-icon"></i>
-          <span>Create Company</span>
+        <NavLink to="/document-register" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-file-earmark-text kt-menu__link-icon"></i>
+          <span>Document Register</span>
         </NavLink>
 
-        <NavLink to="/company/archive" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
-          <i className="bi bi-archive kt-menu__link-icon"></i>
-          <span>Company Archive</span>
+        <NavLink to="/company-report-summary" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-bar-chart-line kt-menu__link-icon"></i>
+          <span>Company Report Summary</span>
+        </NavLink>
+
+        <NavLink to="/dvc-files" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-folder-check kt-menu__link-icon"></i>
+          <span>DVC Files</span>
+        </NavLink>
+
+        <NavLink to="/audit-report" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-journal-check kt-menu__link-icon"></i>
+          <span>Audit Report (Salf)</span>
+        </NavLink>
+
+        <NavLink to="/analyze-report" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-graph-up-arrow kt-menu__link-icon"></i>
+          <span>Analyze Report</span>
+        </NavLink>
+
+        <NavLink to="/legal-management" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-briefcase kt-menu__link-icon"></i>
+          <span>Legal Management</span>
+        </NavLink>
+
+        <NavLink to="/task-management" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-check2-square kt-menu__link-icon"></i>
+          <span>Task Management</span>
+        </NavLink>
+
+        <NavLink to="/company-noc" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-patch-check kt-menu__link-icon"></i>
+          <span>Company NOC</span>
+        </NavLink>
+
+        <div className="kt-menu__section" style={{ marginTop: 15 }}>Basic Configuration</div>
+
+        <NavLink to="/currency" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-cash-coin kt-menu__link-icon"></i>
+          <span>Currency</span>
+        </NavLink>
+
+        <NavLink to="/unit" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-boxes kt-menu__link-icon"></i>
+          <span>Unit</span>
+        </NavLink>
+
+        <NavLink to="/port" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-geo-alt kt-menu__link-icon"></i>
+          <span>Port</span>
+        </NavLink>
+
+        <NavLink to="/cpc-item-no" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-upc-scan kt-menu__link-icon"></i>
+          <span>CPC & Item No</span>
+        </NavLink>
+
+        <NavLink to="/designation-department" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-person-badge kt-menu__link-icon"></i>
+          <span>Designation & Dept</span>
+        </NavLink>
+
+        <NavLink to="/price-additional" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-tag kt-menu__link-icon"></i>
+          <span>Additional Price Area</span>
+        </NavLink>
+
+        <NavLink to="/material" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-box-seam kt-menu__link-icon"></i>
+          <span>Material</span>
+        </NavLink>
+
+        <NavLink to="/product" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-cart-check kt-menu__link-icon"></i>
+          <span>Product</span>
+        </NavLink>
+
+        <NavLink to="/barcode" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-upc kt-menu__link-icon"></i>
+          <span>Barcode</span>
+        </NavLink>
+
+        <NavLink to="/supplier" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-truck kt-menu__link-icon"></i>
+          <span>Supplier</span>
+        </NavLink>
+
+        <NavLink to="/priority-supplier" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-star kt-menu__link-icon"></i>
+          <span>Priority Supplier</span>
+        </NavLink>
+
+        <NavLink to="/customer" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-people-fill kt-menu__link-icon"></i>
+          <span>Customer</span>
+        </NavLink>
+
+        <NavLink to="/priority-customer" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-award kt-menu__link-icon"></i>
+          <span>Priority Customer</span>
         </NavLink>
 
         <div className="kt-menu__section" style={{ marginTop: 15 }}>User Management</div>
@@ -66,7 +168,7 @@ export default function Sidebar() {
         <div className="kt-menu__section" style={{ marginTop: 15 }}>API Developer Tools</div>
 
         <a
-          href="http://localhost:8080/swagger-ui.html"
+          href={`${(import.meta.env.VITE_API_URL || 'http://localhost:8081/api/v1').replace(/\/api\/v1\/?$/, '')}/swagger-ui.html`}
           target="_blank"
           rel="noopener noreferrer"
           className="kt-menu__item"
