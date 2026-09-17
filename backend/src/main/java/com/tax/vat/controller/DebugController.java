@@ -26,7 +26,10 @@ public class DebugController {
             "analyze_reports", "legal_management_cases", "task_management", "noc_certificates",
             "currencies", "unit_of_supplies", "ports", "cpc_item_nos", "designations", "departments",
             "additional_prices", "materials", "products", "suppliers", "priority_suppliers",
-            "customers", "priority_customers"
+            "customers", "priority_customers",
+            "payments", "credit_invoices", "debit_invoices", "bank_treasuries", "bank_transactions_histories",
+            "bank_info_details", "banks", "bank_branches", "mobile_banking_accounts", "mobile_banking_transactions",
+            "rent_vats", "any_other_adjudgement_decs", "packages"
         };
         for (String table : tables) {
             try {
@@ -104,7 +107,10 @@ public class DebugController {
             "analyze_reports", "legal_management_cases", "task_management", "noc_certificates",
             "currencies", "unit_of_supplies", "ports", "cpc_item_nos",
             "designations", "departments", "additional_prices", "materials",
-            "products", "suppliers", "priority_suppliers", "customers", "priority_customers"
+            "products", "suppliers", "priority_suppliers", "customers", "priority_customers",
+            "payments", "credit_invoices", "debit_invoices", "bank_treasuries", "bank_transactions_histories",
+            "bank_info_details", "banks", "bank_branches", "mobile_banking_accounts", "mobile_banking_transactions",
+            "rent_vats", "any_other_adjudgement_decs", "packages"
         };
         for (String table : tables) {
             try {

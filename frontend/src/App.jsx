@@ -38,6 +38,20 @@ import PrioritySupplierListPage from './pages/basic-config/PrioritySupplierListP
 import CustomerListPage from './pages/basic-config/CustomerListPage';
 import PriorityCustomerListPage from './pages/basic-config/PriorityCustomerListPage';
 
+// Payment Information Child Menu Pages
+import PaymentListPage from './pages/payment-info/PaymentListPage';
+import CreditInvoiceListPage from './pages/payment-info/CreditInvoiceListPage';
+import DebitInvoiceListPage from './pages/payment-info/DebitInvoiceListPage';
+import BankTreasuryListPage from './pages/payment-info/BankTreasuryListPage';
+import BankTransactionsListPage from './pages/payment-info/BankTransactionsListPage';
+import BankInfoDetailPage from './pages/payment-info/BankInfoDetailPage';
+import BankBranchListPage from './pages/payment-info/BankBranchListPage';
+import MobileBankingListPage from './pages/payment-info/MobileBankingListPage';
+import RentVatListPage from './pages/payment-info/RentVatListPage';
+import AdjustmentDecreaseListPage from './pages/payment-info/AdjustmentDecreaseListPage';
+import PackageListPage from './pages/payment-info/PackageListPage';
+import SubscriptionListPage from './pages/payment-info/SubscriptionListPage';
+
 // User Pages
 import UserListPage from './pages/user/UserListPage';
 import UserArchivePage from './pages/user/UserArchivePage';
@@ -98,6 +112,20 @@ export default function App() {
             <Route path="/priority-supplier" element={<PrioritySupplierListPage />} />
             <Route path="/customer" element={<CustomerListPage />} />
             <Route path="/priority-customer" element={<PriorityCustomerListPage />} />
+
+            {/* Payment Information Child Menu Routes */}
+            <Route path="/payments" element={<PaymentListPage />} />
+            <Route path="/credit-invoice" element={<CreditInvoiceListPage />} />
+            <Route path="/debit-invoice" element={<DebitInvoiceListPage />} />
+            <Route path="/bank-treasury" element={<BankTreasuryListPage />} />
+            <Route path="/bank-transactions" element={<BankTransactionsListPage />} />
+            <Route path="/bank-info-details" element={<BankInfoDetailPage />} />
+            <Route path="/bank-branch" element={<BankBranchListPage />} />
+            <Route path="/mobile-banking" element={<MobileBankingListPage />} />
+            <Route path="/rent-vat" element={<RentVatListPage />} />
+            <Route path="/adjustment-decrease" element={<AdjustmentDecreaseListPage />} />
+            <Route path="/packages" element={<PackageListPage />} />
+            <Route path="/subscription" element={<SubscriptionListPage />} />
 
             {/* User Routes */}
             <Route path="/users" element={<UserListPage />} />

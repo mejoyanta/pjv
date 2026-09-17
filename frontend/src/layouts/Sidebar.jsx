@@ -131,6 +131,68 @@ export default function Sidebar() {
           <span>Priority Customer</span>
         </NavLink>
 
+        <div className="kt-menu__section" style={{ marginTop: 15 }}>Payment Information</div>
+
+        <NavLink to="/payments" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-wallet2 kt-menu__link-icon"></i>
+          <span>Payments</span>
+        </NavLink>
+
+        <NavLink to="/credit-invoice" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-receipt-cutoff kt-menu__link-icon"></i>
+          <span>Credit Invoice</span>
+        </NavLink>
+
+        <NavLink to="/debit-invoice" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-receipt kt-menu__link-icon"></i>
+          <span>Debit Invoice</span>
+        </NavLink>
+
+        <NavLink to="/bank-treasury" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-bank2 kt-menu__link-icon"></i>
+          <span>Bank Treasury</span>
+        </NavLink>
+
+        <NavLink to="/bank-transactions" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-cash-stack kt-menu__link-icon"></i>
+          <span>Bank Transactions</span>
+        </NavLink>
+
+        <NavLink to="/bank-info-details" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-credit-card-2-front kt-menu__link-icon"></i>
+          <span>Bank Account Info</span>
+        </NavLink>
+
+        <NavLink to="/bank-branch" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-bank kt-menu__link-icon"></i>
+          <span>Bank & Branch</span>
+        </NavLink>
+
+        <NavLink to="/mobile-banking" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-phone kt-menu__link-icon"></i>
+          <span>Mobile Banking</span>
+        </NavLink>
+
+        <NavLink to="/rent-vat" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-graph-up kt-menu__link-icon"></i>
+          <span>Any Other Increasing Adjustments</span>
+        </NavLink>
+
+        <NavLink to="/adjustment-decrease" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-graph-down kt-menu__link-icon"></i>
+          <span>Any Other Decreasing Adjustments</span>
+        </NavLink>
+
+        <NavLink to="/packages" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-box2-heart kt-menu__link-icon"></i>
+          <span>Packages</span>
+        </NavLink>
+
+        <NavLink to="/subscription" className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
+          <i className="bi bi-calendar-check kt-menu__link-icon"></i>
+          <span>Subscription</span>
+        </NavLink>
+
         <div className="kt-menu__section" style={{ marginTop: 15 }}>User Management</div>
 
         <NavLink to="/users" end className={({ isActive }) => `kt-menu__item ${isActive ? 'active' : ''}`}>
