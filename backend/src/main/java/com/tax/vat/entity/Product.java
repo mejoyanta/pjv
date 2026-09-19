@@ -1,11 +1,13 @@
 package com.tax.vat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tax.vat.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Product extends BaseEntity {
 
     @Column(name = "deleted_at")
@@ -28,27 +30,27 @@ public class Product extends BaseEntity {
     private String type;
 
     @Column(name = "product_type")
-    private Boolean productType;
+    private Boolean productType = false;
 
     @Column(name = "vat_type")
-    private String vatType;
+    private String vatType = "exclude";
 
-    private Double vat;
-    private Double sd;
-    private Double at;
-    private Double cd;
-    private Double rd;
-    private Double ait;
-    private Double tti;
-    private Double exd;
+    private Double vat = 0.0;
+    private Double sd = 0.0;
+    private Double at = 0.0;
+    private Double cd = 0.0;
+    private Double rd = 0.0;
+    private Double ait = 0.0;
+    private Double tti = 0.0;
+    private Double exd = 0.0;
 
     private String description;
 
     @Column(name = "purchase_type")
-    private String purchaseType;
+    private String purchaseType = "both";
 
-    @Column(name = "is_service")
-    private Boolean isService;
+    @Column(name = "is_service", nullable = false)
+    private Boolean isService = false;
 
     @Column(name = "company_id")
     private Long companyId;

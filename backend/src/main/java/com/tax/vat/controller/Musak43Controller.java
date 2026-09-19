@@ -165,24 +165,24 @@ public class Musak43Controller {
     @PutMapping("/{id}")
     public ApiResponse<Musak43> update(@PathVariable Long id, @RequestBody Musak43 input) {
         return musak43Repository.findById(id).map(existing -> {
-            existing.setDate(input.getDate());
-            existing.setSubmissionDate(input.getSubmissionDate());
-            existing.setSubmissionId(input.getSubmissionId());
-            existing.setCompanyId(input.getCompanyId());
-            existing.setCompanyBranchId(input.getCompanyBranchId());
-            existing.setProductId(input.getProductId());
-            existing.setProductServiceDetails(input.getProductServiceDetails());
-            existing.setHsCode(input.getHsCode());
-            existing.setBasePrice(input.getBasePrice());
-            existing.setPurchaseQuantity(input.getPurchaseQuantity());
-            existing.setTotalAdditionalCost(input.getTotalAdditionalCost());
-            existing.setProfit(input.getProfit());
-            existing.setSellPrice(input.getSellPrice());
-            existing.setHdWholesaleRate(input.getHdWholesaleRate());
-            existing.setHdRetailerAmount(input.getHdRetailerAmount());
-            existing.setVatAmount(input.getVatAmount());
-            existing.setTotal(input.getTotal());
-            existing.setAmendmentComment(input.getAmendmentComment());
+            if (input.getDate() != null) existing.setDate(input.getDate());
+            if (input.getSubmissionDate() != null) existing.setSubmissionDate(input.getSubmissionDate());
+            if (input.getSubmissionId() != null) existing.setSubmissionId(input.getSubmissionId());
+            if (input.getCompanyId() != null) existing.setCompanyId(input.getCompanyId());
+            if (input.getCompanyBranchId() != null) existing.setCompanyBranchId(input.getCompanyBranchId());
+            if (input.getProductId() != null) existing.setProductId(input.getProductId());
+            if (input.getProductServiceDetails() != null) existing.setProductServiceDetails(input.getProductServiceDetails());
+            if (input.getHsCode() != null) existing.setHsCode(input.getHsCode());
+            if (input.getBasePrice() != null) existing.setBasePrice(input.getBasePrice());
+            if (input.getPurchaseQuantity() != null) existing.setPurchaseQuantity(input.getPurchaseQuantity());
+            if (input.getTotalAdditionalCost() != null) existing.setTotalAdditionalCost(input.getTotalAdditionalCost());
+            if (input.getProfit() != null) existing.setProfit(input.getProfit());
+            if (input.getSellPrice() != null) existing.setSellPrice(input.getSellPrice());
+            if (input.getHdWholesaleRate() != null) existing.setHdWholesaleRate(input.getHdWholesaleRate());
+            if (input.getHdRetailerAmount() != null) existing.setHdRetailerAmount(input.getHdRetailerAmount());
+            if (input.getVatAmount() != null) existing.setVatAmount(input.getVatAmount());
+            if (input.getTotal() != null) existing.setTotal(input.getTotal());
+            if (input.getAmendmentComment() != null) existing.setAmendmentComment(input.getAmendmentComment());
             existing.setUpdatedAt(LocalDateTime.now());
             Musak43 updated = musak43Repository.save(existing);
             return ApiResponse.ok("Mushak 4.3 updated successfully", updated);

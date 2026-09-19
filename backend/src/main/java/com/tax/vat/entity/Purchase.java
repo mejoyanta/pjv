@@ -1,5 +1,6 @@
 package com.tax.vat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tax.vat.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.NotFound;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "purchases")
 @SQLDelete(sql = "UPDATE purchases SET deleted_at = NOW() WHERE id = ?")
 @SQLRestriction("deleted_at IS NULL")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Purchase extends BaseEntity {
 
     @Column(name = "deleted_at")

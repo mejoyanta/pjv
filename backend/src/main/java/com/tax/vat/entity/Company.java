@@ -3,6 +3,7 @@ package com.tax.vat.entity;
 import com.tax.vat.entity.base.BaseEntity;
 import com.tax.vat.enums.CompanyLevel;
 import com.tax.vat.enums.CompanyStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
         @Index(name = "idx_companies_status", columnList = "status"),
         @Index(name = "idx_companies_deleted_at_id", columnList = "deleted_at, id")
 })
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company extends BaseEntity {
 
     @Column(name = "deleted_at")

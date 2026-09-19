@@ -30,10 +30,36 @@ public class MaterialController {
 
     private final MaterialRepository repository;
     private final PdfService pdfService;
+    private final com.tax.vat.repository.CompanyRepository companyRepository;
+    private final com.tax.vat.repository.CompanyBranchRepository companyBranchRepository;
+    private final com.tax.vat.repository.ProductCategoryRepository categoryRepository;
+    private final com.tax.vat.repository.UnitOfSupplyRepository unitRepository;
 
-    public MaterialController(MaterialRepository repository, PdfService pdfService) {
+    public MaterialController(
+            MaterialRepository repository,
+            PdfService pdfService,
+            com.tax.vat.repository.CompanyRepository companyRepository,
+            com.tax.vat.repository.CompanyBranchRepository companyBranchRepository,
+            com.tax.vat.repository.ProductCategoryRepository categoryRepository,
+            com.tax.vat.repository.UnitOfSupplyRepository unitRepository
+    ) {
         this.repository = repository;
         this.pdfService = pdfService;
+        this.companyRepository = companyRepository;
+        this.companyBranchRepository = companyBranchRepository;
+        this.categoryRepository = categoryRepository;
+        this.unitRepository = unitRepository;
+    }
+
+    @Operation(summary = "Get form data options for Material creation and edit")
+    @GetMapping("/form-data")
+    public ApiResponse<java.util.Map<String, Object>> getFormData(@RequestParam(required = false) Long companyId) {
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        data.put("companies", companyRepository.findAllActiveCompanies());
+        data.put("branches", companyBranchRepository.findAll());
+        data.put("categories", categoryRepository.findActiveCategories(companyId));
+        data.put("units", unitRepository.findAllActiveUnits());
+        return ApiResponse.ok("Form data loaded successfully", data);
     }
 
     @Operation(summary = "Load Materials for DataTable")
@@ -71,6 +97,21 @@ public class MaterialController {
         }
         material.setSlug(UUID.randomUUID().toString());
         material.setDeletedAt(null);
+        if (material.getPurchaseType() == null || material.getPurchaseType().trim().isEmpty()) {
+            material.setPurchaseType("both");
+        }
+        if (material.getVatType() == null || material.getVatType().trim().isEmpty()) {
+            material.setVatType("exclude");
+        }
+        if (material.getVat() == null) material.setVat(0.0);
+        if (material.getSd() == null) material.setSd(0.0);
+        if (material.getAt() == null) material.setAt(0.0);
+        if (material.getCd() == null) material.setCd(0.0);
+        if (material.getRd() == null) material.setRd(0.0);
+        if (material.getAit() == null) material.setAit(0.0);
+        if (material.getTti() == null) material.setTti(0.0);
+        if (material.getExd() == null) material.setExd(0.0);
+
         Material saved = repository.save(material);
         return ApiResponse.ok("Material created successfully", saved);
     }
@@ -82,15 +123,21 @@ public class MaterialController {
                 .map(existing -> {
                     if (details.getName() != null) existing.setName(details.getName());
                     if (details.getHsCode() != null) existing.setHsCode(details.getHsCode());
+                    if (details.getPurchaseType() != null) existing.setPurchaseType(details.getPurchaseType());
+                    if (details.getVatType() != null) existing.setVatType(details.getVatType());
                     if (details.getVat() != null) existing.setVat(details.getVat());
                     if (details.getSd() != null) existing.setSd(details.getSd());
                     if (details.getAt() != null) existing.setAt(details.getAt());
                     if (details.getCd() != null) existing.setCd(details.getCd());
                     if (details.getRd() != null) existing.setRd(details.getRd());
                     if (details.getAit() != null) existing.setAit(details.getAit());
-                    if (details.getVatType() != null) existing.setVatType(details.getVatType());
+                    if (details.getTti() != null) existing.setTti(details.getTti());
+                    if (details.getExd() != null) existing.setExd(details.getExd());
                     if (details.getDescription() != null) existing.setDescription(details.getDescription());
                     if (details.getCompanyId() != null) existing.setCompanyId(details.getCompanyId());
+                    if (details.getCompanyBranchId() != null) existing.setCompanyBranchId(details.getCompanyBranchId());
+                    if (details.getCategoryId() != null) existing.setCategoryId(details.getCategoryId());
+                    if (details.getSupplymentUnitId() != null) existing.setSupplymentUnitId(details.getSupplymentUnitId());
                     Material updated = repository.save(existing);
                     return ApiResponse.ok("Material updated successfully", updated);
                 })

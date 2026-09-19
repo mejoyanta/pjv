@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "musak_6_3s")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Musak63 {
 
     @Id
@@ -104,6 +104,13 @@ public class Musak63 {
         if (duplicate == null) duplicate = false;
         if (amendment == null) amendment = false;
         if (isShow == null) isShow = false;
+        if (isDuplicateBn == null) isDuplicateBn = false;
+        if (showInTob == null) showInTob = true;
+        if (paymentStatus == null || paymentStatus.trim().isEmpty()) paymentStatus = "pending";
+        if (buyerType == null || buyerType.trim().isEmpty()) buyerType = "registered";
+        if (slug == null || slug.trim().isEmpty()) {
+            slug = java.util.UUID.randomUUID().toString();
+        }
     }
 
     @PreUpdate

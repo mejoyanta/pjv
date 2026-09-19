@@ -58,6 +58,7 @@ export const mushak63Service = {
   create: (data) => api.post('/mushak-6-3', data),
   update: (id, data) => api.put(`/mushak-6-3/${id}`, data),
   delete: (id) => api.delete(`/mushak-6-3/${id}`),
+  updateStatus: (id, status, reason) => api.post(`/mushak-6-3/${id}/status`, null, { params: { status, reason } }),
   getFormData: (companyId) => api.get('/mushak-6-3/form-data', { params: companyId ? { companyId } : {} }),
   downloadPdf: (id) => triggerPdfDownload(`/mushak-6-3/${id}/pdf`, `mushak_6_3_${id}.pdf`),
 };

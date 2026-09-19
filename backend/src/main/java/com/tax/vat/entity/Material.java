@@ -1,11 +1,13 @@
 package com.tax.vat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tax.vat.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "materials")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Material extends BaseEntity {
 
     @Column(name = "deleted_at")
@@ -19,22 +21,22 @@ public class Material extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    private Double vat;
-    private Double sd;
-    private Double at;
-    private Double cd;
-    private Double rd;
-    private Double ait;
-    private Double tti;
-    private Double exd;
+    private Double vat = 0.0;
+    private Double sd = 0.0;
+    private Double at = 0.0;
+    private Double cd = 0.0;
+    private Double rd = 0.0;
+    private Double ait = 0.0;
+    private Double tti = 0.0;
+    private Double exd = 0.0;
 
     @Column(name = "vat_type")
-    private String vatType;
+    private String vatType = "exclude";
 
     private String description;
 
     @Column(name = "purchase_type")
-    private String purchaseType;
+    private String purchaseType = "both";
 
     @Column(name = "company_id")
     private Long companyId;
@@ -47,11 +49,26 @@ public class Material extends BaseEntity {
     @Column(name = "company_branch_id")
     private Long companyBranchId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_branch_id", insertable = false, updatable = false)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
+    private CompanyBranch companyBranch;
+
     @Column(name = "supplyment_unit_id")
     private Long supplymentUnitId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplyment_unit_id", insertable = false, updatable = false)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
+    private UnitOfSupply unitOfSupply;
+
     @Column(name = "category_id")
     private Long categoryId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    @org.hibernate.annotations.NotFound(action = org.hibernate.annotations.NotFoundAction.IGNORE)
+    private ProductCategory category;
 
     @Column(name = "created_by")
     private Long createdBy;

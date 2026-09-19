@@ -1,11 +1,13 @@
 package com.tax.vat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tax.vat.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "company_branches")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CompanyBranch extends BaseEntity {
 
     @Column(name = "deleted_at")

@@ -1,5 +1,6 @@
 package com.tax.vat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tax.vat.entity.base.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ports")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class Port extends BaseEntity {
 
     @Column(name = "deleted_at")

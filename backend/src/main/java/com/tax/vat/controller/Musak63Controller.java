@@ -145,13 +145,33 @@ public class Musak63Controller {
     @PutMapping("/{id}")
     public ApiResponse<Musak63> update(@PathVariable Long id, @RequestBody Musak63 input) {
         return musak63Repository.findById(id).map(existing -> {
-            existing.setDate(input.getDate());
-            existing.setViNo(input.getViNo());
-            existing.setCompanyId(input.getCompanyId());
-            existing.setCompanyBranchId(input.getCompanyBranchId());
+            if (input.getDate() != null) existing.setDate(input.getDate());
+            if (input.getViNo() != null) existing.setViNo(input.getViNo());
+            if (input.getCompanyId() != null) existing.setCompanyId(input.getCompanyId());
+            if (input.getCompanyBranchId() != null) existing.setCompanyBranchId(input.getCompanyBranchId());
+            if (input.getPaymentStatus() != null) existing.setPaymentStatus(input.getPaymentStatus());
+            if (input.getComments() != null) existing.setComments(input.getComments());
+            if (input.getBuyerType() != null) existing.setBuyerType(input.getBuyerType());
+            if (input.getRejectionReason() != null) existing.setRejectionReason(input.getRejectionReason());
             existing.setUpdatedAt(LocalDateTime.now());
             Musak63 updated = musak63Repository.save(existing);
             return ApiResponse.ok("Mushak 6.3 updated successfully", updated);
+        }).orElseGet(() -> ApiResponse.error("Mushak 6.3 record not found"));
+    }
+
+    @Operation(summary = "Update Mushak 6.3 CR / Payment Status")
+    @PostMapping("/{id}/status")
+    public ApiResponse<Musak63> updateStatus(
+            @PathVariable Long id,
+            @RequestParam String status,
+            @RequestParam(required = false) String reason
+    ) {
+        return musak63Repository.findById(id).map(existing -> {
+            existing.setPaymentStatus(status);
+            if (reason != null) existing.setRejectionReason(reason);
+            existing.setUpdatedAt(LocalDateTime.now());
+            Musak63 updated = musak63Repository.save(existing);
+            return ApiResponse.ok("Mushak 6.3 status updated successfully", updated);
         }).orElseGet(() -> ApiResponse.error("Mushak 6.3 record not found"));
     }
 

@@ -30,10 +30,36 @@ public class ProductController {
 
     private final ProductRepository repository;
     private final PdfService pdfService;
+    private final com.tax.vat.repository.CompanyRepository companyRepository;
+    private final com.tax.vat.repository.CompanyBranchRepository companyBranchRepository;
+    private final com.tax.vat.repository.ProductCategoryRepository categoryRepository;
+    private final com.tax.vat.repository.UnitOfSupplyRepository unitRepository;
 
-    public ProductController(ProductRepository repository, PdfService pdfService) {
+    public ProductController(
+            ProductRepository repository,
+            PdfService pdfService,
+            com.tax.vat.repository.CompanyRepository companyRepository,
+            com.tax.vat.repository.CompanyBranchRepository companyBranchRepository,
+            com.tax.vat.repository.ProductCategoryRepository categoryRepository,
+            com.tax.vat.repository.UnitOfSupplyRepository unitRepository
+    ) {
         this.repository = repository;
         this.pdfService = pdfService;
+        this.companyRepository = companyRepository;
+        this.companyBranchRepository = companyBranchRepository;
+        this.categoryRepository = categoryRepository;
+        this.unitRepository = unitRepository;
+    }
+
+    @Operation(summary = "Get form data options for Product creation and edit")
+    @GetMapping("/form-data")
+    public ApiResponse<java.util.Map<String, Object>> getFormData(@RequestParam(required = false) Long companyId) {
+        java.util.Map<String, Object> data = new java.util.HashMap<>();
+        data.put("companies", companyRepository.findAllActiveCompanies());
+        data.put("branches", companyBranchRepository.findAll());
+        data.put("categories", categoryRepository.findActiveCategories(companyId));
+        data.put("units", unitRepository.findAllActiveUnits());
+        return ApiResponse.ok("Form data loaded successfully", data);
     }
 
     @Operation(summary = "Load Products for DataTable")
@@ -71,6 +97,24 @@ public class ProductController {
         }
         product.setSlug(UUID.randomUUID().toString());
         product.setDeletedAt(null);
+        if (product.getIsService() == null) {
+            product.setIsService("service".equalsIgnoreCase(product.getType()));
+        }
+        if (product.getPurchaseType() == null || product.getPurchaseType().trim().isEmpty()) {
+            product.setPurchaseType("both");
+        }
+        if (product.getVatType() == null || product.getVatType().trim().isEmpty()) {
+            product.setVatType("exclude");
+        }
+        if (product.getVat() == null) product.setVat(0.0);
+        if (product.getSd() == null) product.setSd(0.0);
+        if (product.getAt() == null) product.setAt(0.0);
+        if (product.getCd() == null) product.setCd(0.0);
+        if (product.getRd() == null) product.setRd(0.0);
+        if (product.getAit() == null) product.setAit(0.0);
+        if (product.getTti() == null) product.setTti(0.0);
+        if (product.getExd() == null) product.setExd(0.0);
+
         Product saved = repository.save(product);
         return ApiResponse.ok("Product created successfully", saved);
     }
@@ -85,15 +129,28 @@ public class ProductController {
                     if (details.getBrand() != null) existing.setBrand(details.getBrand());
                     if (details.getColor() != null) existing.setColor(details.getColor());
                     if (details.getModelYear() != null) existing.setModelYear(details.getModelYear());
-                    if (details.getType() != null) existing.setType(details.getType());
+                    if (details.getType() != null) {
+                        existing.setType(details.getType());
+                        if ("service".equalsIgnoreCase(details.getType())) {
+                            existing.setIsService(true);
+                        }
+                    }
+                    if (details.getIsService() != null) existing.setIsService(details.getIsService());
+                    if (details.getPurchaseType() != null) existing.setPurchaseType(details.getPurchaseType());
                     if (details.getVatType() != null) existing.setVatType(details.getVatType());
                     if (details.getVat() != null) existing.setVat(details.getVat());
                     if (details.getSd() != null) existing.setSd(details.getSd());
                     if (details.getAt() != null) existing.setAt(details.getAt());
                     if (details.getCd() != null) existing.setCd(details.getCd());
                     if (details.getRd() != null) existing.setRd(details.getRd());
+                    if (details.getAit() != null) existing.setAit(details.getAit());
+                    if (details.getTti() != null) existing.setTti(details.getTti());
+                    if (details.getExd() != null) existing.setExd(details.getExd());
                     if (details.getDescription() != null) existing.setDescription(details.getDescription());
                     if (details.getCompanyId() != null) existing.setCompanyId(details.getCompanyId());
+                    if (details.getCompanyBranchId() != null) existing.setCompanyBranchId(details.getCompanyBranchId());
+                    if (details.getCategoryId() != null) existing.setCategoryId(details.getCategoryId());
+                    if (details.getSupplymentUnitId() != null) existing.setSupplymentUnitId(details.getSupplymentUnitId());
                     Product updated = repository.save(existing);
                     return ApiResponse.ok("Product updated successfully", updated);
                 })
