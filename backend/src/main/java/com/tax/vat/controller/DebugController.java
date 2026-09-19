@@ -13,9 +13,11 @@ import java.util.*;
 public class DebugController {
 
     private final JdbcTemplate jdbcTemplate;
+    private final com.tax.vat.service.ErrorLoggerService errorLogger;
 
-    public DebugController(JdbcTemplate jdbcTemplate) {
+    public DebugController(JdbcTemplate jdbcTemplate, com.tax.vat.service.ErrorLoggerService errorLogger) {
         this.jdbcTemplate = jdbcTemplate;
+        this.errorLogger = errorLogger;
     }
 
     @GetMapping("/sync-sequences")
@@ -348,4 +350,39 @@ public class DebugController {
         }
         return res;
     }
+
+    @GetMapping(value = "/error-log", produces = "text/plain;charset=UTF-8")
+    public String viewErrorLog(@RequestParam(defaultValue = "200") int lines) {
+        return errorLogger.readRecentLogs(lines);
+    }
+
+    @GetMapping("/error-log/info")
+    public Map<String, Object> getErrorLogInfo(@RequestParam(defaultValue = "100") int lines) {
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("logFilePath", errorLogger.getLogFilePath().toString());
+        res.put("recentLogs", errorLogger.readRecentLogs(lines));
+        return res;
+    }
+
+    @GetMapping("/error-log/clear")
+    public Map<String, Object> clearErrorLog() {
+        Map<String, Object> res = new LinkedHashMap<>();
+        boolean success = errorLogger.clearLogs();
+        res.put("success", success);
+        res.put("message", success ? "Error log cleared successfully." : "Failed to clear error log.");
+        return res;
+    }
+
+    @GetMapping("/test-error")
+    public void testError(@RequestParam(defaultValue = "custom") String type) {
+        if ("npe".equals(type)) {
+            String nullStr = null;
+            nullStr.length();
+        } else if ("db".equals(type)) {
+            jdbcTemplate.execute("SELECT * FROM non_existing_table_xyz");
+        } else {
+            throw new RuntimeException("Simulated Top Level Exception", new IllegalStateException("Specific Root Cause: Database / Foreign key constraint failed"));
+        }
+    }
 }
+
