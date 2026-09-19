@@ -29,7 +29,7 @@ public class DebugController {
             "customers", "priority_customers",
             "payments", "credit_invoices", "debit_invoices", "bank_treasuries", "bank_transactions_histories",
             "bank_info_details", "banks", "bank_branches", "mobile_banking_accounts", "mobile_banking_transactions",
-            "rent_vats", "any_other_adjudgement_decs", "packages"
+            "rent_vats", "any_other_adjudgement_decs", "packages", "purchases"
         };
         for (String table : tables) {
             try {
@@ -110,7 +110,7 @@ public class DebugController {
             "products", "suppliers", "priority_suppliers", "customers", "priority_customers",
             "payments", "credit_invoices", "debit_invoices", "bank_treasuries", "bank_transactions_histories",
             "bank_info_details", "banks", "bank_branches", "mobile_banking_accounts", "mobile_banking_transactions",
-            "rent_vats", "any_other_adjudgement_decs", "packages"
+            "rent_vats", "any_other_adjudgement_decs", "packages", "purchases"
         };
         for (String table : tables) {
             try {

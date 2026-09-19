@@ -38,6 +38,10 @@ import PrioritySupplierListPage from './pages/basic-config/PrioritySupplierListP
 import CustomerListPage from './pages/basic-config/CustomerListPage';
 import PriorityCustomerListPage from './pages/basic-config/PriorityCustomerListPage';
 
+// Stock Management Pages
+import PurchaseListPage from './pages/stock-management/PurchaseListPage';
+import PurchaseCreatePage from './pages/stock-management/PurchaseCreatePage';
+
 // Payment Information Child Menu Pages
 import PaymentListPage from './pages/payment-info/PaymentListPage';
 import CreditInvoiceListPage from './pages/payment-info/CreditInvoiceListPage';
@@ -112,6 +116,12 @@ export default function App() {
             <Route path="/priority-supplier" element={<PrioritySupplierListPage />} />
             <Route path="/customer" element={<CustomerListPage />} />
             <Route path="/priority-customer" element={<PriorityCustomerListPage />} />
+
+            {/* Stock Management Routes */}
+            <Route path="/purchase" element={<PurchaseListPage />} />
+            <Route path="/purchase/create" element={<PurchaseCreatePage />} />
+            <Route path="/purchase/create/:type" element={<PurchaseCreatePage />} />
+            <Route path="/purchase/:id/edit" element={<PurchaseCreatePage />} />
 
             {/* Payment Information Child Menu Routes */}
             <Route path="/payments" element={<PaymentListPage />} />

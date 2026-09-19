@@ -81,6 +81,9 @@ public interface CompanyRepository extends JpaRepository<Company, Long>, JpaSpec
             " LOWER(cat.name) LIKE LOWER(CONCAT('%', :search, '%')))")
     Page<CompanyTableProjection> searchArchivedCompanies(@Param("search") String search, Pageable pageable);
 
+    @Query("SELECT c FROM Company c WHERE c.deletedAt IS NULL ORDER BY c.name ASC")
+    java.util.List<Company> findAllActiveCompanies();
+
     @Query("SELECT COUNT(c) FROM Company c WHERE c.deletedAt IS NULL")
     long countActive();
 

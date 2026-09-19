@@ -1,7 +1,11 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export default function Sidebar() {
+  const location = useLocation();
+  const [isPurchaseOpen, setIsPurchaseOpen] = useState(
+    location.pathname.startsWith('/purchase') || true
+  );
   return (
     <aside className="kt-aside">
       <div className="kt-aside__brand">
@@ -130,6 +134,40 @@ export default function Sidebar() {
           <i className="bi bi-award kt-menu__link-icon"></i>
           <span>Priority Customer</span>
         </NavLink>
+
+        <div className="kt-menu__section" style={{ marginTop: 15 }}>Stock Management</div>
+
+        {/* Product Purchase Submenu Group */}
+        <div className="kt-menu__item-group">
+          <div
+            className={`kt-menu__item kt-menu__item--submenu ${location.pathname.startsWith('/purchase') ? 'active' : ''}`}
+            onClick={() => setIsPurchaseOpen(prev => !prev)}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <i className="bi bi-box2-fill kt-menu__link-icon"></i>
+              <span style={{ fontWeight: 500 }}>Product Purchase</span>
+            </div>
+            <i className={`bi bi-chevron-${isPurchaseOpen ? 'down' : 'right'}`} style={{ fontSize: 11 }}></i>
+          </div>
+
+          {isPurchaseOpen && (
+            <div className="kt-menu__subnav" style={{ paddingLeft: 28, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <NavLink to="/purchase/create/foreign" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>Import Purchase</span>
+              </NavLink>
+              <NavLink to="/purchase/create/local" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>Local Purchase</span>
+              </NavLink>
+              <NavLink to="/purchase" end className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>List</span>
+              </NavLink>
+            </div>
+          )}
+        </div>
 
         <div className="kt-menu__section" style={{ marginTop: 15 }}>Payment Information</div>
 
