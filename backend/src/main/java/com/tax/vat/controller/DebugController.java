@@ -384,5 +384,17 @@ public class DebugController {
             throw new RuntimeException("Simulated Top Level Exception", new IllegalStateException("Specific Root Cause: Database / Foreign key constraint failed"));
         }
     }
+
+    @org.springframework.web.bind.annotation.PostMapping("/log-client-error")
+    public Map<String, Object> logClientError(@org.springframework.web.bind.annotation.RequestBody Map<String, String> payload, jakarta.servlet.http.HttpServletRequest request) {
+        String pageUrl = payload.get("pageUrl");
+        String errorMsg = payload.get("errorMsg");
+        String componentStack = payload.get("componentStack");
+        String userAgent = request.getHeader("User-Agent");
+        errorLogger.logClientError(pageUrl, errorMsg, componentStack, userAgent);
+        Map<String, Object> res = new LinkedHashMap<>();
+        res.put("success", true);
+        return res;
+    }
 }
 

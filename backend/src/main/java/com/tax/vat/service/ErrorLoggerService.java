@@ -40,10 +40,11 @@ public class ErrorLoggerService {
         try {
             String timestamp = LocalDateTime.now().format(DATE_TIME_FORMATTER);
             
-            // Request URL & Method
+            // Frontend Page URL & Backend API Method/URL
             String method = request != null ? request.getMethod() : "UNKNOWN";
             String fullUrl = request != null ? getFullRequestUrl(request) : "N/A";
             String clientIp = request != null ? getClientIp(request) : "N/A";
+            String pageUrl = extractFrontendPageUrl(request);
 
             // Root Cause Discovery
             Throwable rootCause = ex;
@@ -62,7 +63,8 @@ public class ErrorLoggerService {
             StringBuilder sb = new StringBuilder();
             sb.append("================================================================================\n");
             sb.append("[").append(timestamp).append("] ERROR\n");
-            sb.append("URL:         ").append(method).append(" ").append(fullUrl).append("\n");
+            sb.append("PAGE URL:    ").append(pageUrl).append("\n");
+            sb.append("API URL:     ").append(method).append(" ").append(fullUrl).append("\n");
             sb.append("Client IP:   ").append(clientIp).append("\n");
             sb.append("Status:      ").append(status != null ? status.value() + " " + status.getReasonPhrase() : "N/A").append("\n");
             sb.append("Message:     ").append(customMessage != null ? customMessage : exMessage).append("\n");
@@ -93,11 +95,39 @@ public class ErrorLoggerService {
                     StandardOpenOption.APPEND
             );
 
-            // Also output to console
-            log.error("API Error recorded to {}: {} {} - {}", logFilePath.toAbsolutePath(), method, fullUrl, exMessage);
+            log.error("Error on page [{}] - API [{} {}] - {}", pageUrl, method, fullUrl, exMessage);
 
         } catch (Exception e) {
             log.error("Failed to write error to log file", e);
+        }
+    }
+
+    public synchronized void logClientError(String pageUrl, String errorMsg, String componentStack, String userAgent) {
+        try {
+            String timestamp = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+            StringBuilder sb = new StringBuilder();
+            sb.append("================================================================================\n");
+            sb.append("[").append(timestamp).append("] FRONTEND / CLIENT ERROR\n");
+            sb.append("PAGE URL:    ").append(pageUrl != null && !pageUrl.isBlank() ? pageUrl : "N/A").append("\n");
+            sb.append("Message:     ").append(errorMsg).append("\n");
+            if (userAgent != null && !userAgent.isBlank()) {
+                sb.append("User-Agent:  ").append(userAgent).append("\n");
+            }
+            if (componentStack != null && !componentStack.isBlank()) {
+                sb.append("Component Stack:\n").append(componentStack).append("\n");
+            }
+            sb.append("================================================================================\n\n");
+
+            Files.writeString(
+                    logFilePath,
+                    sb.toString(),
+                    StandardCharsets.UTF_8,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+            );
+            log.error("Client UI Error on page [{}]: {}", pageUrl, errorMsg);
+        } catch (Exception e) {
+            log.error("Failed to write client error to log file", e);
         }
     }
 
@@ -132,6 +162,19 @@ public class ErrorLoggerService {
             log.error("Failed to clear log file", e);
             return false;
         }
+    }
+
+    private String extractFrontendPageUrl(HttpServletRequest request) {
+        if (request == null) return "N/A";
+        String xPageUrl = request.getHeader("X-Page-Url");
+        if (xPageUrl != null && !xPageUrl.isBlank()) {
+            return xPageUrl.trim();
+        }
+        String referer = request.getHeader("Referer");
+        if (referer != null && !referer.isBlank()) {
+            return referer.trim();
+        }
+        return "N/A";
     }
 
     private String getFullRequestUrl(HttpServletRequest request) {
