@@ -42,6 +42,15 @@ import PriorityCustomerListPage from './pages/basic-config/PriorityCustomerListP
 import PurchaseListPage from './pages/stock-management/PurchaseListPage';
 import PurchaseCreatePage from './pages/stock-management/PurchaseCreatePage';
 
+// Mushak Form Child Menu Pages
+import Musak43ListPage from './pages/mushak-form/Musak43ListPage';
+import Musak62ListPage from './pages/mushak-form/Musak62ListPage';
+import Musak621ListPage from './pages/mushak-form/Musak621ListPage';
+import Musak63ListPage from './pages/mushak-form/Musak63ListPage';
+import Musak610ListPage from './pages/mushak-form/Musak610ListPage';
+import Musak91ListPage from './pages/mushak-form/Musak91ListPage';
+import Musak91OnlineListPage from './pages/mushak-form/Musak91OnlineListPage';
+
 // Payment Information Child Menu Pages
 import PaymentListPage from './pages/payment-info/PaymentListPage';
 import CreditInvoiceListPage from './pages/payment-info/CreditInvoiceListPage';
@@ -122,6 +131,24 @@ export default function App() {
             <Route path="/purchase/create" element={<PurchaseCreatePage />} />
             <Route path="/purchase/create/:type" element={<PurchaseCreatePage />} />
             <Route path="/purchase/:id/edit" element={<PurchaseCreatePage />} />
+
+            {/* Mushak Form Child Menu Routes */}
+            <Route path="/mushak-form/musak-4-3" element={<Musak43ListPage />} />
+            <Route path="/mushak-form/musak-6-2" element={<Musak62ListPage />} />
+            <Route path="/mushak-form/musak-6-2-1" element={<Musak621ListPage />} />
+            <Route path="/mushak-form/musak-6-3" element={<Musak63ListPage />} />
+            <Route path="/mushak-form/musak-6-10" element={<Musak610ListPage />} />
+            <Route path="/mushak-form/musak-9-1" element={<Musak91ListPage />} />
+            <Route path="/mushak-form/musak-9-1-online" element={<Musak91OnlineListPage />} />
+
+            {/* Direct aliases */}
+            <Route path="/mushak-4-3" element={<Navigate to="/mushak-form/musak-4-3" replace />} />
+            <Route path="/mushak-6-2" element={<Navigate to="/mushak-form/musak-6-2" replace />} />
+            <Route path="/mushak-6-2-1" element={<Navigate to="/mushak-form/musak-6-2-1" replace />} />
+            <Route path="/mushak-6-3" element={<Navigate to="/mushak-form/musak-6-3" replace />} />
+            <Route path="/mushak-6-10" element={<Navigate to="/mushak-form/musak-6-10" replace />} />
+            <Route path="/mushak-9-1" element={<Navigate to="/mushak-form/musak-9-1" replace />} />
+            <Route path="/mushak-9-1-online" element={<Navigate to="/mushak-form/musak-9-1-online" replace />} />
 
             {/* Payment Information Child Menu Routes */}
             <Route path="/payments" element={<PaymentListPage />} />

@@ -249,6 +249,126 @@ public class PdfService {
         }
     }
 
+    public byte[] generateMusak43Pdf(com.tax.vat.entity.Musak43 item) {
+        String title = "GOVERNMENT OF THE PEOPLE'S REPUBLIC OF BANGLADESH\nNATIONAL BOARD OF REVENUE\nMushak - 4.3 (Input-Output Coefficient)";
+        String[] headers = {"Field", "Value"};
+        float[] widths = {35f, 65f};
+        List<String[]> rows = new java.util.ArrayList<>();
+        rows.add(new String[]{"Company Name", item.getCompany() != null ? item.getCompany().getName() : "—"});
+        rows.add(new String[]{"BIN", item.getCompany() != null ? item.getCompany().getBin() : "—"});
+        rows.add(new String[]{"Submission Date", item.getSubmissionDate() != null ? item.getSubmissionDate().toString() : "—"});
+        rows.add(new String[]{"Submission ID", item.getSubmissionId() != null ? item.getSubmissionId() : "—"});
+        rows.add(new String[]{"Product / Goods Name", item.getProductServiceDetails() != null ? item.getProductServiceDetails() : (item.getProduct() != null ? item.getProduct().getName() : "—")});
+        rows.add(new String[]{"HS Code", item.getHsCode() != null ? item.getHsCode() : (item.getProduct() != null ? item.getProduct().getHsCode() : "—")});
+        rows.add(new String[]{"Purchase Quantity", String.format("%.2f", item.getPurchaseQuantity() != null ? item.getPurchaseQuantity() : 0.0)});
+        rows.add(new String[]{"Base Price", String.format("%.2f", item.getBasePrice() != null ? item.getBasePrice() : 0.0)});
+        rows.add(new String[]{"Additional Cost", String.format("%.2f", item.getTotalAdditionalCost() != null ? item.getTotalAdditionalCost() : 0.0)});
+        rows.add(new String[]{"Profit", item.getProfit() != null ? item.getProfit() : "0.00"});
+        rows.add(new String[]{"Sell Price", String.format("%.2f", item.getSellPrice() != null ? item.getSellPrice() : 0.0)});
+        rows.add(new String[]{"Wholesale Rate", String.format("%.2f", item.getHdWholesaleRate() != null ? item.getHdWholesaleRate() : 0.0)});
+        rows.add(new String[]{"Retailer Amount", String.format("%.2f", item.getHdRetailerAmount() != null ? item.getHdRetailerAmount() : 0.0)});
+        rows.add(new String[]{"VAT Amount", String.format("%.2f", item.getVatAmount() != null ? item.getVatAmount() : 0.0)});
+        rows.add(new String[]{"Total", item.getTotal() != null ? item.getTotal() : "0.00"});
+        rows.add(new String[]{"Remarks", item.getAmendmentComment() != null ? item.getAmendmentComment() : "—"});
+        return generateTablePdf(title, headers, widths, rows);
+    }
+
+    public byte[] generateMusak62Pdf(com.tax.vat.entity.Musak62 item) {
+        String title = "GOVERNMENT OF THE PEOPLE'S REPUBLIC OF BANGLADESH\nNATIONAL BOARD OF REVENUE\nMushak - 6.2 (Purchase Register)";
+        String[] headers = {"Field", "Value"};
+        float[] widths = {35f, 65f};
+        List<String[]> rows = new java.util.ArrayList<>();
+        rows.add(new String[]{"Company Name", item.getCompany() != null ? item.getCompany().getName() : "—"});
+        rows.add(new String[]{"BIN", item.getCompany() != null ? item.getCompany().getBin() : "—"});
+        rows.add(new String[]{"Date", item.getSaleDate() != null ? item.getSaleDate().toString() : (item.getPurchaseDate() != null ? item.getPurchaseDate().toString() : "—")});
+        rows.add(new String[]{"VI / Challan No", item.getMusak63() != null && item.getMusak63().getViNo() != null ? String.valueOf(item.getMusak63().getViNo()) : "—"});
+        rows.add(new String[]{"Product Name", item.getProduct() != null ? item.getProduct().getName() : "—"});
+        rows.add(new String[]{"Opening Stock", item.getOpeningStock() != null ? item.getOpeningStock() : "0.00"});
+        rows.add(new String[]{"Closing Stock", String.format("%.2f", item.getClosingStock() != null ? item.getClosingStock() : 0.0)});
+        rows.add(new String[]{"VAT Amount", String.format("%.2f", item.getMusak63() != null && item.getMusak63().getSale() != null && item.getMusak63().getSale().getVatAmount() != null ? item.getMusak63().getSale().getVatAmount() : 0.0)});
+        rows.add(new String[]{"Total Price", String.format("%.2f", item.getMusak63() != null && item.getMusak63().getSale() != null && item.getMusak63().getSale().getTotalSaleAmount() != null ? item.getMusak63().getSale().getTotalSaleAmount() : 0.0)});
+        return generateTablePdf(title, headers, widths, rows);
+    }
+
+    public byte[] generateMusak621Pdf(com.tax.vat.entity.Musak621 item) {
+        String title = "GOVERNMENT OF THE PEOPLE'S REPUBLIC OF BANGLADESH\nNATIONAL BOARD OF REVENUE\nMushak - 6.2.1 (Purchase & Sales Register)";
+        String[] headers = {"Field", "Value"};
+        float[] widths = {35f, 65f};
+        List<String[]> rows = new java.util.ArrayList<>();
+        rows.add(new String[]{"Company Name", item.getCompany() != null ? item.getCompany().getName() : "—"});
+        rows.add(new String[]{"BIN", item.getCompany() != null ? item.getCompany().getBin() : "—"});
+        rows.add(new String[]{"Purchase Date", item.getPurchaseDate() != null ? item.getPurchaseDate().toString() : "—"});
+        rows.add(new String[]{"Sale Date", item.getSaleDate() != null ? item.getSaleDate().toString() : "—"});
+        rows.add(new String[]{"Bill of Entry", item.getPurchase() != null ? item.getPurchase().getBillOfEntry() : "—"});
+        rows.add(new String[]{"VI No", item.getMusak63() != null && item.getMusak63().getViNo() != null ? String.valueOf(item.getMusak63().getViNo()) : "—"});
+        rows.add(new String[]{"Buyer Name", item.getSale() != null && item.getSale().getBuyerName() != null ? item.getSale().getBuyerName() : "—"});
+        rows.add(new String[]{"Product Name", item.getProduct() != null ? item.getProduct().getName() : "—"});
+        rows.add(new String[]{"Opening Stock", String.format("%.2f", item.getOpeningStock() != null ? item.getOpeningStock() : 0.0)});
+        rows.add(new String[]{"Closing Stock", String.format("%.2f", item.getClosingStock() != null ? item.getClosingStock() : 0.0)});
+        rows.add(new String[]{"VAT Amount", String.format("%.2f", item.getSale() != null && item.getSale().getVatAmount() != null ? item.getSale().getVatAmount() : 0.0)});
+        rows.add(new String[]{"Total Amount", String.format("%.2f", item.getSale() != null && item.getSale().getTotalSaleAmount() != null ? item.getSale().getTotalSaleAmount() : 0.0)});
+        return generateTablePdf(title, headers, widths, rows);
+    }
+
+    public byte[] generateMusak63Pdf(com.tax.vat.entity.Musak63 item) {
+        String title = "GOVERNMENT OF THE PEOPLE'S REPUBLIC OF BANGLADESH\nNATIONAL BOARD OF REVENUE\nMushak - 6.3 (Tax Invoice)";
+        String[] headers = {"Field", "Value"};
+        float[] widths = {35f, 65f};
+        List<String[]> rows = new java.util.ArrayList<>();
+        rows.add(new String[]{"Seller / Company Name", item.getCompany() != null ? item.getCompany().getName() : "—"});
+        rows.add(new String[]{"Seller BIN", item.getCompany() != null ? item.getCompany().getBin() : "—"});
+        rows.add(new String[]{"Invoice (VI) No", item.getViNo() != null ? String.valueOf(item.getViNo()) : "—"});
+        rows.add(new String[]{"Issue Date", item.getDate() != null ? item.getDate().toString() : "—"});
+        rows.add(new String[]{"Buyer Name", item.getSale() != null && item.getSale().getBuyerName() != null ? item.getSale().getBuyerName() : "—"});
+        rows.add(new String[]{"Buyer Address", item.getSale() != null && item.getSale().getBuyerAddress() != null ? item.getSale().getBuyerAddress() : "—"});
+        rows.add(new String[]{"Buyer BIN / NID", item.getSale() != null && item.getSale().getBuyerBinTinNid() != null ? item.getSale().getBuyerBinTinNid() : "—"});
+        rows.add(new String[]{"Subtotal", String.format("%.2f", item.getSale() != null && item.getSale().getTotalSaleAmount() != null ? item.getSale().getTotalSaleAmount() : 0.0)});
+        rows.add(new String[]{"VAT Amount", String.format("%.2f", item.getSale() != null && item.getSale().getVatAmount() != null ? item.getSale().getVatAmount() : 0.0)});
+        rows.add(new String[]{"SD Amount", String.format("%.2f", item.getSale() != null && item.getSale().getSdAmount() != null ? item.getSale().getSdAmount() : 0.0)});
+        rows.add(new String[]{"Total Amount", String.format("%.2f", item.getSale() != null && item.getSale().getTotalSaleAmount() != null ? item.getSale().getTotalSaleAmount() : 0.0)});
+        return generateTablePdf(title, headers, widths, rows);
+    }
+
+    public byte[] generateMusak610Pdf(com.tax.vat.entity.Musak63 item) {
+        String title = "GOVERNMENT OF THE PEOPLE'S REPUBLIC OF BANGLADESH\nNATIONAL BOARD OF REVENUE\nMushak - 6.10 (Transaction Value Exceeding 2 Lac BDT)";
+        String[] headers = {"Field", "Value"};
+        float[] widths = {35f, 65f};
+        List<String[]> rows = new java.util.ArrayList<>();
+        rows.add(new String[]{"Company Name", item.getCompany() != null ? item.getCompany().getName() : "—"});
+        rows.add(new String[]{"Company BIN", item.getCompany() != null ? item.getCompany().getBin() : "—"});
+        rows.add(new String[]{"Challan / VI No", item.getViNo() != null ? String.valueOf(item.getViNo()) : "—"});
+        rows.add(new String[]{"Date of Supply", item.getDate() != null ? item.getDate().toString() : "—"});
+        rows.add(new String[]{"Buyer Name", item.getSale() != null && item.getSale().getBuyerName() != null ? item.getSale().getBuyerName() : "—"});
+        rows.add(new String[]{"Buyer Address", item.getSale() != null && item.getSale().getBuyerAddress() != null ? item.getSale().getBuyerAddress() : "—"});
+        rows.add(new String[]{"Buyer BIN / NID", item.getSale() != null && item.getSale().getBuyerBinTinNid() != null ? item.getSale().getBuyerBinTinNid() : "—"});
+        rows.add(new String[]{"Total Transaction Value", String.format("%.2f", item.getSale() != null && item.getSale().getTotalSaleAmount() != null ? item.getSale().getTotalSaleAmount() : 0.0)});
+        return generateTablePdf(title, headers, widths, rows);
+    }
+
+    public byte[] generateMusak91Pdf(com.tax.vat.entity.Musak91 item) {
+        String title = "GOVERNMENT OF THE PEOPLE'S REPUBLIC OF BANGLADESH\nNATIONAL BOARD OF REVENUE\nMushak - 9.1 (Value Added Tax Return)";
+        String[] headers = {"Part / Note", "Description", "Value"};
+        float[] widths = {20f, 50f, 30f};
+        List<String[]> rows = new java.util.ArrayList<>();
+        rows.add(new String[]{"Part 1", "Taxpayer BIN", item.getCompany() != null ? item.getCompany().getBin() : "—"});
+        rows.add(new String[]{"Part 1", "Taxpayer Name", item.getCompany() != null ? item.getCompany().getName() : "—"});
+        rows.add(new String[]{"Part 2", "Tax Period", item.getDate() != null ? item.getDate().toString() : "—"});
+        rows.add(new String[]{"Part 2", "Return Type", item.getReturnType() != null ? item.getReturnType() : "Main Return (Sec 64)"});
+        rows.add(new String[]{"Part 2", "Submission Date", item.getSubmisionDate() != null ? item.getSubmisionDate().toString() : "—"});
+        rows.add(new String[]{"Part 5", "Note 24 (VDS Withheld by Receiver)", item.getInput24() != null ? item.getInput24() : "0.00"});
+        rows.add(new String[]{"Part 5", "Note 25 (Non-banking channel payment)", item.getInput25() != null ? item.getInput25() : "0.00"});
+        rows.add(new String[]{"Part 5", "Note 27 (Other Increasing Adjustments)", item.getInput27() != null ? item.getInput27() : "0.00"});
+        rows.add(new String[]{"Part 6", "Note 29 (VDS from Supplies Delivered)", item.getInput29() != null ? item.getInput29() : "0.00"});
+        rows.add(new String[]{"Part 6", "Note 30 (AT Paid at Import)", item.getInput30() != null ? item.getInput30() : "0.00"});
+        rows.add(new String[]{"Part 6", "Note 32 (Other Decreasing Adjustments)", item.getInput32() != null ? item.getInput32() : "0.00"});
+        rows.add(new String[]{"Part 7", "Note 52 (Last Period Closing VAT)", item.getInput52() != null ? item.getInput52() : "0.00"});
+        rows.add(new String[]{"Part 9", "Note 58 (Treasury Deposit VAT)", item.getInput58() != null ? item.getInput58() : "0.00"});
+        rows.add(new String[]{"Part 10", "Note 65 (Closing Balance VAT)", item.getInput65() != null ? item.getInput65() : "0.00"});
+        rows.add(new String[]{"Part 12", "Declarant Name", item.getDeclarationName() != null ? item.getDeclarationName() : "—"});
+        rows.add(new String[]{"Part 12", "Declarant Designation", item.getDeclarationDesignation() != null ? item.getDeclarationDesignation() : "—"});
+        return generateTablePdf(title, headers, widths, rows);
+    }
+
     private void addCell(PdfPTable table, String text, Font font, Color bg, int align) {
         PdfPCell cell = new PdfPCell(new Phrase(text, font));
         cell.setBackgroundColor(bg);

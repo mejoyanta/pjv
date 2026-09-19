@@ -6,6 +6,9 @@ export default function Sidebar() {
   const [isPurchaseOpen, setIsPurchaseOpen] = useState(
     location.pathname.startsWith('/purchase') || true
   );
+  const [isMushakOpen, setIsMushakOpen] = useState(
+    location.pathname.startsWith('/mushak-form') || true
+  );
   return (
     <aside className="kt-aside">
       <div className="kt-aside__brand">
@@ -164,6 +167,55 @@ export default function Sidebar() {
               <NavLink to="/purchase" end className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
                 <i className="bi bi-dot"></i>
                 <span>List</span>
+              </NavLink>
+            </div>
+          )}
+        </div>
+
+        <div className="kt-menu__section" style={{ marginTop: 15 }}>Mushak Form</div>
+
+        <div className="kt-menu__item-group">
+          <div
+            className={`kt-menu__item kt-menu__item--submenu ${location.pathname.startsWith('/mushak-form') ? 'active' : ''}`}
+            onClick={() => setIsMushakOpen(prev => !prev)}
+            style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <i className="bi bi-file-earmark-ruled-fill kt-menu__link-icon"></i>
+              <span style={{ fontWeight: 500 }}>Mushak Forms</span>
+            </div>
+            <i className={`bi bi-chevron-${isMushakOpen ? 'down' : 'right'}`} style={{ fontSize: 11 }}></i>
+          </div>
+
+          {isMushakOpen && (
+            <div className="kt-menu__subnav" style={{ paddingLeft: 28, display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <NavLink to="/mushak-form/musak-4-3" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>4.3 Mushak Forms</span>
+              </NavLink>
+              <NavLink to="/mushak-form/musak-6-2" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>6.2 Mushak Forms</span>
+              </NavLink>
+              <NavLink to="/mushak-form/musak-6-2-1" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>6.2.1 Mushak Forms</span>
+              </NavLink>
+              <NavLink to="/mushak-form/musak-6-3" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>6.3 Mushak Forms</span>
+              </NavLink>
+              <NavLink to="/mushak-form/musak-6-10" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>6.10 Mushak Forms</span>
+              </NavLink>
+              <NavLink to="/mushak-form/musak-9-1" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>9.1 Mushak Forms</span>
+              </NavLink>
+              <NavLink to="/mushak-form/musak-9-1-online" className={({ isActive }) => `kt-menu__item py-1 ${isActive ? 'active' : ''}`} style={{ fontSize: 13 }}>
+                <i className="bi bi-dot"></i>
+                <span>Online 9.1 Documents</span>
               </NavLink>
             </div>
           )}

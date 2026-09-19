@@ -29,7 +29,8 @@ public class DebugController {
             "customers", "priority_customers",
             "payments", "credit_invoices", "debit_invoices", "bank_treasuries", "bank_transactions_histories",
             "bank_info_details", "banks", "bank_branches", "mobile_banking_accounts", "mobile_banking_transactions",
-            "rent_vats", "any_other_adjudgement_decs", "packages", "purchases"
+            "rent_vats", "any_other_adjudgement_decs", "packages", "purchases",
+            "musak_4_3s", "musak_6_2s", "musak_6_2_1s", "musak_6_3s", "sales", "musak_9_1s", "musak_9_1_onlines"
         };
         for (String table : tables) {
             try {
