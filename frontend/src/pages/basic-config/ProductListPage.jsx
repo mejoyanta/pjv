@@ -132,11 +132,16 @@ export default function ProductListPage() {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
+      const payload = {
+        ...formData,
+        productType: formData.productType === '1' || formData.productType === 1 || formData.productType === true,
+        isService: formData.productType === '5' || formData.type === 'service'
+      };
       if (editingItem) {
-        await productService.update(editingItem.id, formData);
+        await productService.update(editingItem.id, payload);
         setAlert({ type: 'success', message: 'Product updated successfully!' });
       } else {
-        await productService.create(formData);
+        await productService.create(payload);
         setAlert({ type: 'success', message: 'Product created successfully!' });
       }
       setIsFormOpen(false);

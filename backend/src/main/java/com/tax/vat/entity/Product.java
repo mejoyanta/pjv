@@ -30,6 +30,7 @@ public class Product extends BaseEntity {
     private String type;
 
     @Column(name = "product_type")
+    @com.fasterxml.jackson.databind.annotation.JsonDeserialize(using = com.tax.vat.config.FlexibleBooleanDeserializer.class)
     private Boolean productType = false;
 
     @Column(name = "vat_type")

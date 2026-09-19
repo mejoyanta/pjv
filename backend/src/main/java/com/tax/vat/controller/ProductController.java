@@ -97,6 +97,9 @@ public class ProductController {
         }
         product.setSlug(UUID.randomUUID().toString());
         product.setDeletedAt(null);
+        if (product.getHsCode() == null || product.getHsCode().trim().isEmpty()) {
+            product.setHsCode(String.valueOf(System.currentTimeMillis() / 1000));
+        }
         if (product.getIsService() == null) {
             product.setIsService("service".equalsIgnoreCase(product.getType()));
         }
@@ -129,6 +132,7 @@ public class ProductController {
                     if (details.getBrand() != null) existing.setBrand(details.getBrand());
                     if (details.getColor() != null) existing.setColor(details.getColor());
                     if (details.getModelYear() != null) existing.setModelYear(details.getModelYear());
+                    if (details.getProductType() != null) existing.setProductType(details.getProductType());
                     if (details.getType() != null) {
                         existing.setType(details.getType());
                         if ("service".equalsIgnoreCase(details.getType())) {
